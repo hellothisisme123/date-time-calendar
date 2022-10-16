@@ -1,0 +1,50 @@
+body {
+    background-color: rgb(100, 100, 100);
+}
+
+* {
+    font-size: 3vw;
+    font-family: Calibri;
+} 
+
+:root {
+    --dark-grey: rgb(75, 75, 75);
+    --black: rgb(25, 25, 25);
+}
+
+.calendar_table_node {
+    background-color: var(--dark-grey);
+    box-shadow: 0 0 0 0.4vw var(--black);   
+    overflow: hidden;
+    border-radius: 5px;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.calendar_day_title_row {
+}
+
+.calendar_day_title_row > .cell {
+
+
+}
+
+.calendar_day_cell {
+    color: white;
+    /* border: 0.2vw solid rgb(100, 100, 100); */
+    /* margin: 0.1vw; */
+}
+
+.calendar_day_title_cell {
+    color: white;
+    padding: 1vw;
+    width: 150px;
+}
+
+.cell { 
+    --cell-size: 100px;
+    --height-multiplier: 0.5;
+    width: var(--cell-size);
+    height: calc(var(--cell-size) * var(--height-multiplier));
+    text-align: center;
+}
