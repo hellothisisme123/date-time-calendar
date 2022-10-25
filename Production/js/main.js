@@ -60,7 +60,7 @@ let dummy_row_6  = [cell_6_1_1, cell_6_2_1, cell_6_3_1, cell_6_4_1, cell_6_5_1, 
 
 
 //the full data table
-let dummy_data_table = [dummy_row_1, dummy_row_2, dummy_row_3, dummy_row_4, dummy_row_5, dummy_row_6];
+let dummy_data_table = [dummy_row_1, dummy_row_2, dummy_row_3, dummy_row_4, dummy_row_5, dummy_row_6];  
 
 
 function fill_table(data, table) { //runs through each row and collumn, setting each cells innerHTML to the data desired
@@ -84,52 +84,69 @@ function $(a) {
     return document.querySelector(a);
 }
 
-fill_table(dummy_data_table, table_selector);
 
 
 
-
-// collasally huge function to set the data for the years in the calendar
-const month_day_count_asjkhhujasdbfghsdavbfghasvdghasv = { //this is just labels with syntax highlighitng
-    'jan': 31,
-    'feb': 28,
-    'mar': 30,
-    'apr': 30,
-    'may': 31,
-    'jun': 30,
-    'jul': 31,
-    'aug': 31,
-    'sep': 30,
-    'oct': 31,
-    'nov': 30,
-    'dec': 31
-};
-
-const month_day_count = [
-    31, 28, 30, 30,
-    31, 30, 31, 31,
-    30, 31, 30, 31
-];
-
-console.log(month_day_count);
-
-
-function set_calendar_data(year_count) { //starting year 1995 cuz the first was on a monday
-    let years = [];
-    for (let i = 0; i < year_count; i++) {
-        let current_year;
-
-
-
-
-
-
-        years.push(current_year);
-        console.log(years);
-    }
-
-
+// gets the data for which days are what date
+//need to add function for leap years, and the 400 year gregorian rule
+function get_calendar_data(year_count) { //starting year 1995 cuz the first was on a monday
+    const month_day_count = [
+        31, 28, 30, 30,
+        31, 30, 31, 31,
+        30, 31, 30, 31
+    ];                                                                          //data on the amount of days in a month
+    let years = [];                                                             //every year generated
     
+    for (let i = 0; i < year_count; i++) { //once for each year
+        let current_year = [];                                                  //the year that the loop generates
+        let stop_index = 0;                                                     //index on what place the code stopped counting up
+        
+        for (let month_i = 0; month_i < 12; month_i++) { //once for each month
+            current_month = [];                                                 //the month that each loop generates
+            let running = true;                                                 //helps to fill in the 0's after it finishes
+            let day_date_i = 0 - stop_index;                                    //resets the date count and subtracts the stop_index so the dates are correct
+            for (let week_i = 0; week_i < 6; week_i++) {                        //once for each week in month 
+                let current_week = [];                                          //current week this generates
+                for (let day_i = 0; day_i < 7; day_i++) { //once for each day in week
+                    if (day_date_i < month_day_count[month_i] && running) {     //increments the date filling in each day, and stops when it reaches the amount of days in that specific month according to the constant data
+                        day_date_i++;
+                    } else if (running) {                                       //runs when it stops counting the date up
+                        day_date_i = 0;                                         //resets the date counter
+                        running = false;                                        //stops it from counting up
+                        stop_index = day_i;                                     //sets the stop_index to the specific location that the code stopped
+                    }
+                    current_week.push(day_date_i);                              //pushes the day to the week
+                }
+                // console.log('week end')
+                current_month.push(current_week);                               //pushes the week to the month
+            }
+            // console.log('month end');
+            current_year.push(current_month);                                   //pushes the month to the year
+        }
+        // console.log(current_year);
+        years.push(current_year);                                               //pushes the year to years array
+    }
+    return years;
 }
 
-set_calendar_data(5);
+let selected_month = 0; //jan
+let selected_year = 0; //1995
+
+function change_month(e) {
+    if (selected_month + e > 11) {
+        selected_year++;
+        console.log('year up');
+        selected_month = selected_month - e;
+    } else if (selected_month + e < 0) {
+        selected_month = 12 + (selected_month + e);
+        selected_year--;
+    } else {
+        selected_month = selected_month + e;
+    }
+    console.log(`${selected_year}:${selected_month}`)
+    fill_table(get_calendar_data(selected_year+1)[selected_year][selected_month], table_selector);
+}
+
+window.onload = (e) => {
+    fill_table(get_calendar_data(selected_year+1)[selected_year][selected_month], table_selector);
+}
