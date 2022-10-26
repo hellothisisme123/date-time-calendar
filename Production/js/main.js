@@ -133,13 +133,22 @@ let selected_month = 0; //jan
 let selected_year = 0; //1995
 
 function change_month(e) {
-    if (selected_month + e > 11) {
-        selected_year++;
-        console.log('year up');
-        selected_month = selected_month - e;
-    } else if (selected_month + e < 0) {
-        selected_month = 12 + (selected_month + e);
-        selected_year--;
+    if (selected_month + e > 11) { //increase year
+        selected_year++; 
+        if (isNegative(e)) {
+            // console.log('negative');
+        } else if (!isNegative(e)) {
+            // console.log('positive');
+        }
+        selected_month = (selected_month + e) - 12;
+        
+        console.log('increase year');
+    } else if (selected_month + e < 0) { //decreases year
+        if (selected_year > 0) {
+            console.log('decrease year')
+            selected_year--;
+            selected_month = 12 + e;
+        }
     } else {
         selected_month = selected_month + e;
     }
@@ -149,4 +158,9 @@ function change_month(e) {
 
 window.onload = (e) => {
     fill_table(get_calendar_data(selected_year+1)[selected_year][selected_month], table_selector);
+}
+
+function isNegative(num) {
+    if (num > 0) return false;
+    if (num < 0) return true;
 }
