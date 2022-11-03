@@ -5,6 +5,7 @@ body {
 * {
     font-size: 2vw;
     font-family: Calibri;
+    color: #fff;
 } 
 
 :root {
@@ -47,4 +48,12 @@ body {
     width: var(--cell-size);
     height: calc(var(--cell-size) * var(--height-multiplier));
     text-align: center;
+}
+
+.change_month_button {
+    color: #000;
+}
+
+.date_label {
+    display: inline;
 }
