@@ -138,6 +138,7 @@ function get_calendar_data(year_count) { //starting year 1995 cuz the first was 
         // console.log(current_year);
         years.push(current_year);                                               //pushes the year to years array
     }
+    console.log('done');
     return years;
 }
 
@@ -147,7 +148,8 @@ let selected_year = 0; //1995
 function change_month(e) {
     if (selected_year == 0 && isNegative(e) && isNegative(selected_month-1)) return;    //prevents from going bellow 0
     if (e==-12 && selected_year == 0) return selected_month = 0;                        //prevents from going bellow 0
-    
+    if (selected_year == 2500 - 1995 && e==12 || selected_year == 2500 - 1995 && selected_month>10 && e==1) return; //prevents from going bellow 0
+
     if(e==1)  selected_month++; //increments up one month
     if(e==-1) selected_month--; //increments down one month
     if(e==12) selected_year++;  //increments up one year
@@ -176,7 +178,7 @@ window.onload = (e) => {
     selected_year = date.getFullYear() - 1995;  //sets the year
     selected_month = date.getMonth();           //sets the month
 
-    calendar_data = get_calendar_data(selected_year+100);   //sets calendar_data
+    calendar_data = get_calendar_data(2500 - 1994);   //sets calendar_data
     fill_table(calendar_data, table_selector);              //fills the table
 }
 

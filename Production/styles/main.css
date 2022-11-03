@@ -22,18 +22,8 @@ body {
     text-align: center;
 }
 
-.calendar_day_title_row {
-}
-
-.calendar_day_title_row > .cell {
-
-
-}
-
 .calendar_day_cell {
     color: white;
-    /* border: 0.2vw solid rgb(100, 100, 100); */
-    /* margin: 0.1vw; */
 }
 
 .calendar_day_title_cell {
@@ -51,7 +41,7 @@ body {
 }
 
 .change_month_button {
-    color: #000;
+    color: #333;
 }
 
 .date_label {
