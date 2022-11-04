@@ -3,23 +3,32 @@ body {
 }
 
 * {
-    font-size: 2vw;
+    font-size: 1.1em;
     font-family: Calibri;
     color: #fff;
 } 
 
 :root {
-    --dark-grey: rgb(75, 75, 75);
-    --black: rgb(25, 25, 25);
+    --calendar-primary: rgb(75, 75, 75);
+    --calendar-secondary: rgb(90, 90, 90);
+    --calendar-borders: rgb(25, 25, 25);
+}
+
+.calendar_container {
+    display: grid;
+    grid-template-columns: 5;
 }
 
 .calendar_table_node {
-    background-color: var(--dark-grey);
-    box-shadow: 0 0 0 0.4vw var(--black);   
+    background-color: var(--calendar_primary);
+    box-shadow: 0 0 0 0.4vw var(--calendar-borders);   
     overflow: hidden;
     border-radius: 5px;
     border-collapse: collapse;
     text-align: center;
+    margin-bottom: 1%;
+    grid-column: span 5;
+    grid-auto-columns: 1fr 1fr 1fr 1fr;
 }
 
 .calendar_day_cell {
@@ -29,10 +38,10 @@ body {
 .calendar_day_title_cell {
     color: white;
     padding: 1vw;
-    width: 150px;
+    /* width: 150px; */
 }
 
-.cell { 
+.calendar_cell { 
     --cell-size: 100px;
     --height-multiplier: 0.5;
     width: var(--cell-size);
@@ -41,9 +50,22 @@ body {
 }
 
 .change_month_button {
-    color: #333;
+    color: #fff;
+    width: 200px;
+    margin: 0 auto;
+    background-color: var(--calendar_primary);
+    border: 0.3vw solid var(--calendar-borders);
+    border-radius: 1000px;
+}
+
+.change_month_button:hover {
+    background-color: var(--calendar-secondary);
 }
 
 .date_label {
-    display: inline;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    margin: 0 auto;
 }
